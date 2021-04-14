@@ -8,6 +8,7 @@ public class Data {
 	private String descripE; //영어 본문
 	private String authE; // 영어 말한이
 	private String category; //명언 카테고리 
+	private int size; //총 명언 갯수
 	
 	public Data() {};
 	
@@ -67,6 +68,14 @@ public class Data {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 	
 	
