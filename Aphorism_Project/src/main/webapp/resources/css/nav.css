@@ -8,10 +8,10 @@ body{
 	bottom:0;
 	width:100%;
 	height:55px;
-	box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); /*그림자효과*/
 	background-color: #ffffff;
 	display:flex;
-	overflow-x:auto;
+	overflow-x:auto; /*자동으로, 넘치면 스크롤 아님 말구*/
 }
 
 .nav__link{
@@ -31,7 +31,7 @@ body{
 }
 
 .nav__link:hover {
-	background-color:#eeeeee;
+	background-color:#e6e6e6;
 }
 
 .nav__link--active{
@@ -40,4 +40,9 @@ body{
 
 .nav__icon {
 	font-size:24px;
+}
+
+.material-icons-outlined {
+	font-family:'Indie Flower', cursive;
+	font-weight: bold;
 }

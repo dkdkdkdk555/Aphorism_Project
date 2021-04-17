@@ -5,6 +5,7 @@
 <html>
 <head>
 <jsp:include page="include/resource.jsp"></jsp:include>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/spinner.css" /><!-- 스피너 css -->
 <meta charset="UTF-8">
 <title>home.do</title>
 <style>
@@ -52,7 +53,7 @@
 		padding-left:0px;
 	}
 	
-	/* 반응형 폰트 크기 설정하는 미디어 쿼리*/
+	/* 반응형 폰트 크기 설정하는 미디어 쿼리_홈버전*/
 	@media (max-width:360px){html{font-size:20px;}}
 	
 	@media (min-width:360px) and (max-width:799px){html{font-size:21px;}}
@@ -87,6 +88,9 @@
 			</button>
 		</div>
 	</div>
+<div class="back-drop"> <!--home 화면 처음 로딩시 나오는 스피너 svg (구현보류)-->
+	<img src="${pageContext.request.contextPath }/resources/svg/Spinner_font_awesome.svg" alt="" />
+</div>
 <jsp:include page="include/bottom_nav.jsp"></jsp:include>
 </body>
 <script>
@@ -98,6 +102,7 @@
 		$("#setting").removeClass("nav__link--active");
 		//탭을 클랙했으니까 해당 클래스에 탭 추가 
 		$("#home").addClass("nav__link--active");
+		
 	});
 	
 	//language_btn을 누르면 바로 언어가 바뀌게 하기 위해 담을 변수들
@@ -148,6 +153,8 @@
 				autK = data["authK"];
 				autE = data["authE"];
 				size = data["size"]; // 총 명언의 갯수 수정
+				$("#description").css('font-family',"'Nanum Pen Script', cursive");
+				$("#author").css('font-family',"'Nanum Pen Script', cursive");
 				if(enMode) { //지금이 한글모드이면  
 					$("#description").text(""+data["descripE"]);
 					$("#author").text("-"+data["authE"]);

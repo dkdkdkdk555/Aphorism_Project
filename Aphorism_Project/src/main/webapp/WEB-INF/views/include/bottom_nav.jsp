@@ -5,7 +5,7 @@
 		<i class="material-icons nav__icon" id="home">wb_incandescent</i>
 		<span class="material-icons-outlined">Home</span>
 	</a>
-	<a href="" class="nav__link">
+	<a href="${pageContext.request.contextPath }/category/category.do" class="nav__link">
 		<i class="material-icons nav__icon" id="category">category</i>
 		<span class="material-icons-outlined">Category</span>		
 	</a>
