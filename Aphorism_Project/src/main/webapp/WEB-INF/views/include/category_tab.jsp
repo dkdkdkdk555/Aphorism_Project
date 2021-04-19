@@ -9,6 +9,5 @@
 	<li id="confidence">Confidence</li>
 	<li id="study">Study</li>
 	<li id="celebrity">Celebrity</li>
-	<li id="great_man">Great&nbsp;man</li>
-	<li id="recently_added">Recently&nbsp;added</li>
+	<li id="new">Recently&nbsp;added</li>
 </nav>
