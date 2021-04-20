@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,6 +79,7 @@
 		border: 3.8px solid #e6e6e6;
 	}
 	
+	/*카테고리 설명 섹션 설정*/
 	section{
 		background-color: #cecece;
 	}
@@ -96,9 +96,6 @@
 		text-align: center;
 	}
 	
-	.btn{
-		font-size: 13px;
-	}
 	
 	#mainImage{ /*카테고리 소개 이미지 레이아웃 조절*/
 		display:block;
@@ -111,6 +108,11 @@
 		margin-top:20px;
 	}
 	
+	/*한영 버튼 설정*/
+	.btn{
+		font-size: 13px;
+	}
+	
 	.btn-group{/*한영 버튼 가운데 정렬*/
 	 	display:flex;
 	 	justify-content:center;
@@ -120,7 +122,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/category_tab.jsp"></jsp:include>
+<jsp:include page="../include/category_tab.jsp"></jsp:include><!-- 카테고리 설명 섹션 -->
 	<section class="py-5 text-center container">
 	    <div class="row py-lg-5">
 	      <div class="col-lg-6 col-md-8 mx-auto">
@@ -132,7 +134,7 @@
 	      </div>
 	    </div>
   </section>
-<div class="container">
+<div class="container"><!-- 데이터 출력 부 --> 
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="rowum">
 
 	</div>
