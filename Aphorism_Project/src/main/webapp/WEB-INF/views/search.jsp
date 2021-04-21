@@ -103,6 +103,25 @@
 		display:inline;
 	}
 	
+	#searchResult{ /*검색 결과  표시 */
+		size:18px;
+		weight:bold;
+		color:#595959;
+		background-color: #64ffda;
+		border:1px solid #64ffda;
+		border-radius:15px;
+	}
+	
+	/*임시*/
+	.card-text {
+		font-family: 'Nanum Pen Script', cursive;
+		text-align: center;
+	}
+	
+	.card-subtitle {
+		font-family: 'Nanum Pen Script', cursive;
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -115,8 +134,9 @@
 	<section class="py-5 text-center container"><!-- 검색 결과 설명 섹션 -->
 		<p></p>
 	    <div class="row py-lg-5">
-	      <div class="col-lg-6 col-md-8 mx-auto">
-	        <!-- 여기 다 검색결과 개수 표시, 폰트 두껍게_짙은 회색-->
+	      <div class="col-lg-6 col-md-8 mx-auto" id="parentP">
+	        <!--검색결과 개수 표시, 폰트 두껍게_짙은 회색_2021.04.21-->
+	        <h1 id="searchResult"></h1><br />
 	        <div class="btn-group">
 				<button type="button" class="btn btn-outline-secondary" id="en">English mode</button>
 				<button type="button" class="btn btn-outline-secondary" id="kr">Korean mode</button>
@@ -143,18 +163,65 @@
 		
 	});	
 	
-	let enMode = true;//임시
+	//한영 모드 설정_2021.04.21
+	let enMode = false;
+	
+	let modelSize = 0;//검색 결과 데이터 개수
+	
+	//검색 결과 데이터를 담아놓을 변수들(한영전환 위해)_2021.04.21
+	let descK = [];
+	let autK = [];
+	let descE = [];
+	let autE = [];
+	
+	$("#en").on("click", function(){
+		//버튼 효과
+		$(".btn-group").children("button").attr('class', 'btn btn-outline-secondary');//우선 모든 버튼을 outline으로 만듬
+		$(this).attr('class', 'btn btn-secondary'); // 그러곤 클릭한 버튼에서 outline제거
+		//영어로 바꿈
+		enMode = true;
+		for(let i=0; i<modelSize; i++) {
+			$("#"+i).find('.card-text').text(descE[i]);
+			$("#"+i).find('.card-subtitle').text("-"+ autE[i]);
+		}
+		
+	});
+	
+	$("#kr").on("click", function(){
+		//버튼 효과
+		$(".btn-group").children("button").attr('class', 'btn btn-outline-secondary');
+		$(this).attr('class', 'btn btn-secondary');
+		//한글로 바꿈
+		enMode = false;
+		for(let i=0; i<modelSize; i++) {
+			$("#"+i).find('.card-text').text(descK[i]);
+			$("#"+i).find('.card-subtitle').text("-"+ autK[i]);
+		}
+		
+	});
 	
 	//검색버튼을 누르면 input의 텍스트를 가져와 ajax요청을 해서 명언 응답받기_2021.04.20
 	$("#searchLogo").on("click", function(){
 		//검색창의 텍스트를 가져온다.
 		let searchKeyword = $("#keywordInsert").val();
-		console.log(searchKeyword);
+		let reg_en = /^[a-zA-Z]*$/;//영어인지 판별할 정규표현식
+		enMode = reg_en.test(searchKeyword); //일치 -> true
+		
+		//이전에 추가되었던 데이터(태그) 모두 삭제
+		$('#rowum').empty(); // 선택한 요소의 자식요소 모두를 삭제한다.(선택한 요소는 삭제되지 않음 (remove(), detach()와의 차이점)
+		
 		$.ajax({
 			url:"${pageContext.request.contextPath }/search_data.do?keyword=" + searchKeyword,
 			method:"GET",
 			success:function(data){
+				modelSize = data.length;
 				console.log(data);
+				if(data==null || data==undefined || data.length==0){
+					$("#searchResult").text("검색결과가 없습니다."); //no result.
+				} else {
+					$("#searchResult").text("result: "+modelSize); // 총 검색 결과 개수 
+				}
+				
 				for(let i=0; i<data.length; i++) {
 					for(let j=0; i<data.length; i++) { //먼저 명언갯수만큼 col를 만들음 
 						$('#rowum').append($('<div class="col" id="' + i + '">'+'</div>'));	
@@ -169,15 +236,24 @@
 				
 				for(let i=0; i<data.length; i++) {
 					let item = data[i];
+					//한영모드 전환을 위해 배열에다가 데이터 담아둠_21.04.21
+					descK[i] = item["descripK"];
+					autK[i] = item["authK"];
+					descE[i] = item["descripE"];
+					autE[i] = item["authE"];
 					if(!enMode){ //지금이 영어 모드가 아니라면
 						$('#'+i).find('.card-body').append($('<p class="card-text">' + item['descripK'] + '</p>')); // 각 col마다 다른 명언을 넣어야 하기 때문에 
 						$('#'+i).find('.card-body').append($('<p class="card-subtitle">' + '-' + item['authK'] + '</p>'));
+						
 					} else { //지금이 영어 모드이면
 						$('#'+i).find('.card-body').append($('<p class="card-text">' + item['descripE'] + '</p>')); 
 						$('#'+i).find('.card-body').append($('<p class="card-subtitle">' + '-' + item['authE'] + '</p>'));
+						
 					}
 				
 				}
+				
+				
 			}
 		})
 		
