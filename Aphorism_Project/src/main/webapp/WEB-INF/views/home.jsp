@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>home.do</title>
 <style>
-	html, body{ /*.container가 하단탭 나머지 부분을 모두 차지하게 하기 위해 우선 설정*/
+	html, body{ /*.container가 하단탭 나머지 부분을 모두 차지하게 하기 위해 우선 설정 */
 		height:100%;
 		width: 100%;
 	}
@@ -22,13 +22,13 @@
 	
 	/* 뷰페이지 레이아웃 구성 */
 	.container{ 
-		height:84%; /* 컨텐츠를 가운데 정렬하기 위한 설정*/
+		height:84%; /* 컨텐츠를 가운데 정렬하기 위한 설정 */
 		width: 100%;
 		display: flex;
 		flex-wrap: nowrap;
 		justify-content:space-between; /* prev, next버튼이 컨텐츠 크기에 따라 위치가 바뀌는 문제 해결 */
-		align-items:center; /* 컨텐츠를 가운데 정렬하기 위한 설정*/
-		align-content:center; /* 컨텐츠를 가운데 정렬하기 위한 설정*/
+		align-items:center; /* 컨텐츠를 가운데 정렬하기 위한 설정 */
+		align-content:center; /* 컨텐츠를 가운데 정렬하기 위한 설정 */
 		
 		
 	}
@@ -40,7 +40,7 @@
 		margin-left: 8px;
 		padding-right: 0px;
 	}
-	.row-xs-8 { /* description 담은 div*/
+	.row-xs-8 { /* description 담은 div */
 		margin: 0px 30px
 	}
 	#author { 
@@ -49,11 +49,9 @@
 	#description {
 		text-align: center;
 	}
-	#language_btn { /* 한영 전환 버튼 */
-		padding-left:0px;
-	}
 	
-	/* 반응형 폰트 크기 설정하는 미디어 쿼리_홈버전*/
+	
+	/* 반응형 폰트 크기 설정하는 미디어 쿼리_홈버전 */
 	@media (max-width:360px){html{font-size:20px;}}
 	
 	@media (min-width:360px) and (max-width:799px){html{font-size:21px;}}
@@ -63,6 +61,26 @@
 	@media (min-width:840px) and (max-width:879px){html{font-size:24px;}}
 	
 	@media (min-width:880px){html{font-size:28px;}}
+	
+	/* 한영버튼 과 좋아요버튼 레이아웃 설정 */
+	#lan_like{
+		display:flex;
+		width:68px;
+
+	}
+	#language_btn { /* 한영 전환 버튼 */
+		padding: 0 0 0 0px;
+		
+	}
+	#like_border_btn{ /* 좋아요 버튼 */
+		padding: 0 0 0 0px;	
+	}
+	#like_border_img{
+		width:24px;
+		height:24px;
+	}
+	
+	
 	
 </style>
 </head>
@@ -77,10 +95,16 @@
 			<p id="id"></p>
 			<p id="description"></p>
 			<p id="author"></p>
-			<button class="nav__link" id="language_btn"><!-- 한영전환 버튼 -->
-				<i class="material-icons nav__icon" id="lan_icon">language</i>
-				<span class="material-icons-outlined" id="lan">en</span>
-			</button>
+			<div id="lan_like">
+				<button class="nav__link" id="language_btn"><!-- 한영전환 버튼 -->
+					<i class="material-icons nav__icon" id="lan_icon">language</i>
+					<span class="material-icons-outlined" id="lan">en</span>
+				</button>
+				<button class="nav__link" id="like_border_btn">
+					<img src="${pageContext.request.contextPath }/resources/svg/like.svg" id="like_border_img" />
+					<span class="material-icons-outlined" id="like">like</span>
+				</button>
+			</div>
 		</div>
 		<div class="row-xs-2"><!-- next버튼 -->
 			<button type="button" id="next">
@@ -162,6 +186,9 @@
 					$("#description").text(""+data["descripK"]);
 					$("#author").text("-"+data["authK"]);
 				}
+				
+				// 명언의 좋아요 여부 검사
+				isLike(data["id"]);
 	
 			}
 		})
@@ -194,7 +221,13 @@
 					$("#description").text(""+data["descripK"]);
 					$("#author").text("-"+data["authK"]);
 				}
-	
+				
+				// 명언의 좋아요 여부 검사
+				if(isLike(data["id"]) == false){
+					$("#like").text('like');
+					$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/like.svg');
+					$("#like_border_img").attr('style', 'width:24px;');
+				}
 			}
 		})
 	});
@@ -226,8 +259,100 @@
 					$("#description").text(""+data["descripK"]);
 					$("#author").text("-"+data["authK"]);
 				}
+				
+				// 명언의 좋아요 여부 검사
+				if(isLike(data["id"]) == false){
+					$("#like").text('like');
+					$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/like.svg');
+					$("#like_border_img").attr('style', 'width:24px;');
+				}
+				
 			}
 		})
 	});
+	
+	// 좋아요 버튼 눌렀을 때_2021.04.23
+	$("#like_border_btn").on("click", function(){
+		//텍스트와 버튼 svg바꾸기
+		let text = $("#like").text();
+		if(text=="like"){ //좋아요를 눌렀다면 
+			$("#like").text('unlike');
+			$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/heart.svg');
+			$("#like_border_img").attr('style', 'width:20px;');//svg크기 보정
+			
+			//현재 명언의 id값
+			let id = $('#id').text();
+			
+			//'like'키 값의 쿠키가 존재하는지 검사
+			if(getCookie('like') == null){ // 좋아요가 처음이라면
+				setCookie('like', id); //쿠키생성
+			} else if(getCookie('like') == ''){ // 'like' 쿠키가 이미 존재 하는데 비어있다면			
+				// 쿠키 저장
+				setCookie('like', id);
+			} else {
+				// 쿠키를 가져온다.
+				let cookie = getCookie('like').toString();
+				// 쿠키가 문자열로 저장되므로 새로저장할 명언을 하나의 문자열로 합친다. 
+				let like = cookie + encodeURI(';') + id;				
+				// 기존 쿠키 삭제
+				setCookie('like','');
+				// 쿠키 저장
+				setCookie('like', like);
+			}
+			
+		} else { //좋아요를 취소한다면
+			$("#like").text('like');
+			$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/like.svg');
+			$("#like_border_img").attr('style', 'width:24px;');//svg크기 보정
+			
+			//쿠키에서 삭제
+			setCookie('like','');
+		}
+		
+	});
+	
+	//쿠키 생성 메소드_2021.04.23
+	function setCookie(key, value) {
+	    let expiration_date = new Date();
+	   	expiration_date.setFullYear(expiration_date.getFullYear()+1);// 시간을 1년으로 지정
+	    document.cookie = key + "=" + escape(value) + "; path=/; expires=" + expiration_date.toUTCString();
+	}
+	
+	
+	//쿠키 가져오는 메소드_2021.04.23
+	function getCookie(key) {
+		let result = null;
+		let cookie = document.cookie.split(';');// 쿠키 문자열을 ';'를 기준으로 나누고 배열을 리턴 
+	    cookie.some(function(item){ // cookie 배열을 가지고 some의 테스트 함수를 실행시켜 하나의 엘리먼트라도 true면은 true를 리턴하는 메소드 .some() (근데 여기선 걍 배열 요소들 가지고 함수 실행만)
+	      
+	        item = item.replace(' ', '');// 공백을 제거
+	 
+	        let dic = item.split('=');// 각 인덱스를 '='기준으로 또 나눔
+	 
+	        if (key === dic[0]) { // = 의 좌측이 전달받은 key 와 같다면
+	            result = dic[1]; // 결과로 value를 담고 (쿠키값 얻어내기)
+	            return true;    // getCookie메소드를 종료
+	        }
+	    });
+	    return result; //키값과 일치하는 쿠키가 없다면 null을 리턴
+	}
+	
+	//현재 명언의 좋아요 여부 검사하는 메소드_2021.04.23
+	function isLike(id){
+		if(getCookie('like')!=null) {
+			let like = getCookie('like').split(';'); //쿠키밸류를 배열로 리턴
+			for(let ele of like) {
+				if(parseInt(ele) == id){ //배열의 요소가 현재 명언의 id와 같다면 
+					//빨간하트로 바꿔주기
+					$("#like").text('unlike');
+					$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/heart.svg');
+					$("#like_border_img").attr('style', 'width:20px;');
+					return true; //종료
+				}
+			}
+			return false;
+		}	
+	}
+
 </script>
 </html>

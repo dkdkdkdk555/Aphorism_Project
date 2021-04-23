@@ -13,7 +13,7 @@
 		<i class="material-icons nav__icon" id="search">search</i>
 		<span class="material-icons-outlined">Search</span>
 	</a>
-	<a href="${pageContext.request.contextPath }/setting/setting.jsp" class="nav__link">
+	<a href="${pageContext.request.contextPath }/setting/setting.do" class="nav__link">
 		<i class="material-icons nav__icon" id="setting">face</i>
 		<span class="material-icons-outlined">Setting</span>
 	</a>
