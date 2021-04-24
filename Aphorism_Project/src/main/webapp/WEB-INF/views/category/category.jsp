@@ -63,7 +63,7 @@
 		align-items:center; /* 컨텐츠를 가운데 정렬하기 위한 설정*/
 		align-content:center; /* 컨텐츠를 가운데 정렬하기 위한 설정*/
 		flex-direction:column;
-		padding-bottom:300px;
+		padding-bottom:300px;/* 컨텐츠가 하단탭에 가려지지 않도록 */
 		
 	}
 	

@@ -69,9 +69,6 @@
 		z-index:1; 
 		background-color:white;
 		justify-content:flex-start;
-		
-		
-		
 	}
 	/* 검색어 창*/
 	#keywordInsert{

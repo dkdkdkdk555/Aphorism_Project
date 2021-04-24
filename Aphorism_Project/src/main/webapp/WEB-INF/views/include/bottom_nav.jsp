@@ -15,6 +15,6 @@
 	</a>
 	<a href="${pageContext.request.contextPath }/setting/setting.do" class="nav__link">
 		<i class="material-icons nav__icon" id="setting">face</i>
-		<span class="material-icons-outlined">Setting</span>
+		<span class="material-icons-outlined">My</span>
 	</a>
 </nav>

@@ -293,7 +293,7 @@
 				// 쿠키를 가져온다.
 				let cookie = getCookie('like').toString();
 				// 쿠키가 문자열로 저장되므로 새로저장할 명언을 하나의 문자열로 합친다. 
-				let like = cookie + encodeURI(';') + id;				
+				let like = cookie + '@' + id;				
 				// 기존 쿠키 삭제
 				setCookie('like','');
 				// 쿠키 저장
@@ -306,7 +306,22 @@
 			$("#like_border_img").attr('style', 'width:24px;');//svg크기 보정
 			
 			//쿠키에서 삭제
-			setCookie('like','');
+			//1.현재 쿠키밸류를 얻어옴
+			let currentCookie = getCookie('like');
+			//2.현재명언id를 쿠키벨류에서 제거
+			let id = $('#id').text();
+			futureCookie = currentCookie.replace(id, '');
+			
+			setCookie('like', futureCookie);
+			
+			//3.골뱅이정리
+			let reg = /@+/; //@가 하나이상인지 검사하는 정규표현식
+			
+			if(reg.test(getCookie('like'))) {
+				let newCookie = getCookie('like').replaceAll('@@','@'); // @@는 @로 대체
+				setCookie('like', newCookie);
+			}
+			
 		}
 		
 	});
@@ -340,7 +355,7 @@
 	//현재 명언의 좋아요 여부 검사하는 메소드_2021.04.23
 	function isLike(id){
 		if(getCookie('like')!=null) {
-			let like = getCookie('like').split(';'); //쿠키밸류를 배열로 리턴
+			let like = getCookie('like').split('@'); //쿠키밸류를 배열로 리턴
 			for(let ele of like) {
 				if(parseInt(ele) == id){ //배열의 요소가 현재 명언의 id와 같다면 
 					//빨간하트로 바꿔주기
