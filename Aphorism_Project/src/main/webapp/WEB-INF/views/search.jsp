@@ -125,7 +125,7 @@
 <nav class="top_nav">
 	<form class="form">
 		<img src="${pageContext.request.contextPath }/resources/svg/searchIcon.svg" class="button" type="button" id="searchLogo"/>
-		<input class="input" placeholder="검색어를 입력해 주세요" id="keywordInsert">
+		<input class="input" placeholder="Type here to search" id="keywordInsert">
 	</form>
 </nav>
 	<section class="py-5 text-center container"><!-- 검색 결과 설명 섹션 -->
@@ -159,6 +159,11 @@
 		$("#search").addClass("nav__link--active");
 		
 	});	
+	
+	//'isKr'한글모드일때  _2021.04.26
+	if(getCookie('isKr')=='yes'){
+		$('.input').attr('placeholder', '검색어를 입력 하세요');
+	}
 	
 	//한영 모드 설정_2021.04.21
 	let enMode = false;
@@ -255,6 +260,24 @@
 		})
 		
 	});
+		
+	//쿠키 가져오는 메소드_2021.04.23
+	function getCookie(key) {
+		let result = null;
+		let cookie = document.cookie.split(';');// 쿠키 문자열을 ';'를 기준으로 나누고 배열을 리턴 
+	    cookie.some(function(item){ // cookie 배열을 가지고 some의 테스트 함수를 실행시켜 하나의 엘리먼트라도 true면은 true를 리턴하는 메소드 .some() (근데 여기선 걍 배열 요소들 가지고 함수 실행만)
+	      
+	        item = item.replace(' ', '');// 공백을 제거
+	 
+	        let dic = item.split('=');// 각 인덱스를 '='기준으로 또 나눔
+	 
+	        if (key === dic[0]) { // = 의 좌측이 전달받은 key 와 같다면
+	            result = dic[1]; // 결과로 value를 담고 (쿠키값 얻어내기)
+	            return true;    // getCookie메소드를 종료
+	        }
+	    });
+	    return result; //키값과 일치하는 쿠키가 없다면 null을 리턴
+	}
 	
 </script>
 </html>

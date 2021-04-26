@@ -9,7 +9,7 @@
 <title>language.jsp</title>
 <style>
 	.container{
-		padding-bottom:200px; /* 컨텐츠가 하단탭에 가려지지 않도록 */
+		padding-bottom:100px; /* 컨텐츠가 하단탭에 가려지지 않도록 */
 		margin-top:20px;
 	}
 
@@ -58,6 +58,55 @@
 		font-size:24px;
 		margin-bottom:0px;
 	}
+	
+	button{
+		border:0; 
+		outline:0;
+		background-color:#ffffff;
+	}
+	/* 토글버튼 설정 */
+	input { display: none; }
+	
+	label {
+		display:inline-block;
+		width: 100px;
+		height: 34px;
+		cursor: pointer;
+		position: relative;
+		background-color: #ccc;
+	}
+	
+	label::before{
+		content: '';
+		display: block;
+		width: 26px;
+		height:26px;
+		left: 4px;
+		bottom: 4px;
+		position: absolute;
+		background-color: #fff;
+		transition: all .4s ease;/* 토글 스위치가 스무스하게 움직임 */
+	}
+
+	input:checked + label { background-color: #2196F3;}
+	input:checked + label:before{
+		-webkit-transform:translateX(65px);
+		-ms-transform:translateX(65px);
+		transform:translateX(65px);
+		/* transform : translate(x, y)*/
+	}
+	
+	label.round { border-radius: 34px}
+	label.round::before {border-radius: 50%}
+	
+	/*토글버튼과 p의 레이아웃 조정*/
+	.lanInput{
+		display:flex;
+		justify-content:space-evenly;
+		
+	}
+	
+	
 </style>
 </head>
 <body>
@@ -71,13 +120,17 @@
 	    <div class="row py-lg-5">
 	      <div class="col-lg-6 col-md-8 mx-auto" id="parentP">
 	      <img src="${pageContext.request.contextPath }/resources/svg/translation.svg" class="logimg"/>
-			<p class="title" style="padding-left:5px;">Language Setting</p>
+			<p class="title" style="padding-left:5px;">Basic Language Setting</p>
 	      </div>
 	    </div>
 	</section>
 </div>
 <div class="container">
-	
+	<div class="lanInput">
+		<p>Korean basic</p>
+		<input type="checkbox" id="lanSwitch" />
+		<label for="lanSwitch" class="round"></label>
+	</div>
 </div>
 <div></div>
 <jsp:include page="../include/bottom_nav.jsp"></jsp:include>
@@ -92,6 +145,48 @@
 		//탭을 클랙했으니까 해당 클래스에 탭 추가 
 		$("#setting").addClass("nav__link--active");
 	});	
+	
+	//토글버튼 구현_2021.04.26
+	$('#lanSwitch').on('click', function(){ //토글스위치를 누르면
+		if($('#lanSwitch').is(':checked')==true){ //눌러서 활성화된 상태로 만들면
+			setCookie('isKr', 'yes'); //'isKr'쿠키에 'yes'값이 저장
+		} else { // 다시 비활성화 시키며
+			setCookie('isKr',''); // 쿠키삭제
+		}
+		
+	});
+	
+	//'isKr'한글모드일때는 체크박스가 체크되어있는 상태로 나오게 하기 _2021.04.26
+	if(getCookie('isKr')=='yes'){
+		$('#lanSwitch').prop("checked", true);
+		$('.title').text('기본 언어 설정');
+		$('.title').css('font-family',"'Nanum Pen Script', cursive");
+	}
+	
+	//쿠키 생성 메소드_2021.04.23
+	function setCookie(key, value) {
+	    let expiration_date = new Date();
+	   	expiration_date.setFullYear(expiration_date.getFullYear()+1);// 시간을 1년으로 지정
+	    document.cookie = key + "=" + escape(value) + "; path=/; expires=" + expiration_date.toUTCString();
+	}
+	
+	//쿠키 가져오는 메소드_2021.04.23
+	function getCookie(key) {
+		let result = null;
+		let cookie = document.cookie.split(';');// 쿠키 문자열을 ';'를 기준으로 나누고 배열을 리턴 
+	    cookie.some(function(item){ // cookie 배열을 가지고 some의 테스트 함수를 실행시켜 하나의 엘리먼트라도 true면은 true를 리턴하는 메소드 .some() (근데 여기선 걍 배열 요소들 가지고 함수 실행만)
+	      
+	        item = item.replace(' ', '');// 공백을 제거
+	 
+	        let dic = item.split('=');// 각 인덱스를 '='기준으로 또 나눔
+	 
+	        if (key === dic[0]) { // = 의 좌측이 전달받은 key 와 같다면
+	            result = dic[1]; // 결과로 value를 담고 (쿠키값 얻어내기)
+	            return true;    // getCookie메소드를 종료
+	        }
+	    });
+	    return result; //키값과 일치하는 쿠키가 없다면 null을 리턴
+	}
 	
 </script>
 </html>

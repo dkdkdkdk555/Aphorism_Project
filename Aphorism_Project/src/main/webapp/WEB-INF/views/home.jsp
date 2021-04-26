@@ -120,6 +120,10 @@
 <script>
 	//home화면이라면 home메뉴탭을 활성화 시킨다_2021.04.12
 	$(document).ready(function(){
+		// 한영전체설정_2021.04.26
+		if(!(getCookie('isKr')=='yes')){ //한글모드가 아니면 영어버튼 클릭
+			$("#language_btn").trigger("click");
+		}
 		//일단 모든 nav__link--active 활성화 클래스를 제거하고 
 		$("#category").removeClass("nav__link--active");
 		$("#search").removeClass("nav__link--active");

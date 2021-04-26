@@ -132,6 +132,12 @@
 		$("#setting").addClass("nav__link--active");
 	});	
 	
+	//기본언어설정에 따른 효과_2021.04.26
+	if(getCookie('isKr')=='yes'){
+		$('.title').text('내가 누른 좋아요');
+		$('.title').css('font-family',"'Nanum Pen Script', cursive");
+	}
+	
 	//한영버튼_2021.04.24
 	$('#en').on('click',function(){
 		//버튼 효과

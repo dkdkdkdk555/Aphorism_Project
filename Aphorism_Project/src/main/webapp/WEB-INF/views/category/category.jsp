@@ -144,6 +144,12 @@
 <script>
 	//category화면이라면 category메뉴탭을 활성화 시킨다_2021.04.16
 	$(document).ready(function(){
+		// 한영전체설정_2021.04.26
+		if(getCookie('isKr')=='yes'){
+			$("#kr").trigger("click");//언어설정 한글이면 한글부터 보이게
+		} else {
+			$("#en").trigger("click");
+		}
 		//일단 모든 nav__link--active 활성화 클래스를 제거하고 
 		$("#home").removeClass("nav__link--active");
 		$("#search").removeClass("nav__link--active");
@@ -152,6 +158,7 @@
 		$("#category").addClass("nav__link--active");
 		
 	});	
+	
 	
 	//category 첫화면에서 아무것도 안보이니까 뭐라도 보이게하기_2021.04.19
 	$(document).ready(function(){
@@ -227,5 +234,23 @@
 			}
 		})
 	});
+		
+	//쿠키 가져오는 메소드_2021.04.23
+	function getCookie(key) {
+		let result = null;
+		let cookie = document.cookie.split(';');// 쿠키 문자열을 ';'를 기준으로 나누고 배열을 리턴 
+	    cookie.some(function(item){ // cookie 배열을 가지고 some의 테스트 함수를 실행시켜 하나의 엘리먼트라도 true면은 true를 리턴하는 메소드 .some() (근데 여기선 걍 배열 요소들 가지고 함수 실행만)
+	      
+	        item = item.replace(' ', '');// 공백을 제거
+	 
+	        let dic = item.split('=');// 각 인덱스를 '='기준으로 또 나눔
+	 
+	        if (key === dic[0]) { // = 의 좌측이 전달받은 key 와 같다면
+	            result = dic[1]; // 결과로 value를 담고 (쿠키값 얻어내기)
+	            return true;    // getCookie메소드를 종료
+	        }
+	    });
+	    return result; //키값과 일치하는 쿠키가 없다면 null을 리턴
+	}
 </script>
 </html>

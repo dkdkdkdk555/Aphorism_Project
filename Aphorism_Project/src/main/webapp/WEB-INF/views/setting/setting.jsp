@@ -69,13 +69,13 @@
 		<article id="likes">
 			<button>
 				<img src="${pageContext.request.contextPath }/resources/svg/heart.svg" class="logimg"/>
-				<p class="title" style="padding-left:10px;">LIKE</p>
+				<p class="title" style="padding-left:10px;" id="like_title">LIKE</p>
 			</button>
 		</article>
 		<article id="language">
 			<button>
 				<img src="${pageContext.request.contextPath }/resources/svg/translation.svg" class="logimg"/>
-				<p class="title" style="padding-right:10px;">KO/EN</p>
+				<p class="title" style="padding-right:10px;"  id="lan_title">KO/EN</p>
 			</button>
 		</article>	
 	</div>
@@ -83,13 +83,13 @@
 		<article id="backcolor">
 			<button>
 				<img src="${pageContext.request.contextPath }/resources/svg/rgb.svg" class="logimg"/>
-				<p class="title" style="padding-left:5px;">Color</p>
+				<p class="title" style="padding-left:5px;"  id="color_title">Color</p>
 			</button>
 		</article>
 		<article id="font">
 			<button>
 				<img src="${pageContext.request.contextPath }/resources/svg/italic.svg" class="logimg"/>
-				<p class="title" style="padding-left:5px;">Font</p>
+				<p class="title" style="padding-left:5px;" id="font_title">Font</p>
 			</button>
 		</article>
 	</div>
@@ -97,13 +97,13 @@
 		<article id="recommend">
 			<button>
 				<img src="${pageContext.request.contextPath }/resources/svg/kakao-talk.svg" class="logimg" style="margin-left:43px;"/>
-				<p class="title" style="padding-left:5px; ">Recommend <br />to friends</p>
+				<p class="title" style="padding-left:5px;" id="recommend_title">Recommend</p>
 			</button>
 		</article>
 		<article id="screen">
 			<button>
 				<img src="${pageContext.request.contextPath }/resources/svg/settings.svg" class="logimg" style="margin-left:30px;"/>
-				<p class="title" >Run on <br />lock screen</p>
+				<p class="title" id="screen_title">Run on<br />lock screen</p>
 			</button>
 		</article>
 	</div>
@@ -113,6 +113,20 @@
 <jsp:include page="../include/bottom_nav.jsp"></jsp:include>
 </body>
 <script>
+
+	//'isKr'한글모드일때  _2021.04.26
+	if(getCookie('isKr')=='yes'){
+		$('#like_title').text('좋아요');
+		$('#lan_title').text('한/영');
+		$('#color_title').text('배경색');
+		$('#font_title').text('폰트설정');
+		$('#recommend_title').text('앱추천하기');
+		$('#recommend_title').css('padding-left', '10px');
+		$('#recommend').find('img').css('margin-left', '23px');
+		$('#screen_title').text('잠금화면 앞에 실행');
+		$('#screen').find('img').css('margin-left', '40px');
+		$('.title').css('font-family',"'Nanum Pen Script', cursive");
+	}
 	//setting화면이라면 setting메뉴탭을 활성화 시킨다_2021.04.16
 	$(document).ready(function(){
 		//일단 모든 nav__link--active 활성화 클래스를 제거하고 
@@ -148,5 +162,23 @@
 	$("#screen").on('click', function(){
 		location.href ='${pageContext.request.contextPath }/setting/screen.do';
 	});
+	
+	//쿠키 가져오는 메소드_2021.04.23
+	function getCookie(key) {
+		let result = null;
+		let cookie = document.cookie.split(';');// 쿠키 문자열을 ';'를 기준으로 나누고 배열을 리턴 
+	    cookie.some(function(item){ // cookie 배열을 가지고 some의 테스트 함수를 실행시켜 하나의 엘리먼트라도 true면은 true를 리턴하는 메소드 .some() (근데 여기선 걍 배열 요소들 가지고 함수 실행만)
+	      
+	        item = item.replace(' ', '');// 공백을 제거
+	 
+	        let dic = item.split('=');// 각 인덱스를 '='기준으로 또 나눔
+	 
+	        if (key === dic[0]) { // = 의 좌측이 전달받은 key 와 같다면
+	            result = dic[1]; // 결과로 value를 담고 (쿠키값 얻어내기)
+	            return true;    // getCookie메소드를 종료
+	        }
+	    });
+	    return result; //키값과 일치하는 쿠키가 없다면 null을 리턴
+	}
 </script>
 </html>

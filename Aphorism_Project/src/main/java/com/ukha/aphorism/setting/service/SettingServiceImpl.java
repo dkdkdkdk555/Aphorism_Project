@@ -1,6 +1,7 @@
 package com.ukha.aphorism.setting.service;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -35,11 +37,12 @@ public class SettingServiceImpl implements SettingService{
 				String key = tmp.getName();
 				if(key.equals("like")) { // 쿠키의 키값이 like 라면 
 					likeCookie = tmp.getValue();
+				} else if(!(key.contains("like"))) { // 쿠키 like 자체가 존재하지 않으면 null을 리턴
+					return null;
 				}
 			}
 		}
 		
-		//'like'쿠키를 배열로 만든다.
 		String[] likeArr = likeCookie.split("@");
 		
 		String requestUrl = "https://dkdkdkdk555.github.io/Aphorism_data/data.jsp";
