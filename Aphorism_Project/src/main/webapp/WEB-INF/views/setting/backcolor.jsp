@@ -75,6 +75,10 @@
 		color:#ffffff;
 	}
 	
+	.list-group{
+		border:2px solid #e6e6e6;
+	}
+	
 
 </style>
 </head>
@@ -82,14 +86,14 @@
 <div>
 	<nav class="top_nav">
 		<a href="../setting/setting.do"><!-- 이전 페이지 -->
-			<img src="${pageContext.request.contextPath }/resources/svg/previous.svg" class="button" type="button" id="previous"/>
+			<span class="material-icons" id="previous">keyboard_backspace</span>
 		</a>
 	</nav>
 	<section class="py-5 text-center container"><!-- 페이지 소개섹션 -->
 	    <div class="row py-lg-5">
 	      <div class="col-lg-6 col-md-8 mx-auto" id="parentP">
 	      <img src="${pageContext.request.contextPath }/resources/svg/rgb.svg" class="logimg"/>
-			<p class="title" style="padding-left:5px;">background theme setting</p>
+			<p class="title" style="padding-left:5px;">Background color setting</p>
 	      </div>
 	    </div>
 	</section>
@@ -97,13 +101,13 @@
 <div class="container">
 	<ul class="list-group">
 	  <li class="list-group-item" id="original">Original
-	  	<span class="material-icons" class="check">done</span>
+	  	<span class="material-icons" class="check" id="origin"></span>
 	  </li>
 	  <li class="list-group-item" id="dark" >Dark Mode
-	  	<span class="material-icons" class="check">done</span>
+	  	<span class="material-icons" class="check" id="dar"></span>
 	  </li>
 	  <li class="list-group-item" id="fa">#135fa1
-	  	<span class="material-icons" class="check">done</span>
+	  	<span class="material-icons" class="check" id="ffa"></span>
 	  </li>
 	</ul>
 </div>
@@ -113,7 +117,24 @@
 <script>
 	//setting화면이라면 setting메뉴탭을 활성화 시킨다_2021.04.24
 	$(document).ready(function(){
-	
+		//현재페이지를 들어왔을 때 theme쿠키가 생성되지 않았다면 기본 흰색으로 설정_2021.04.27
+		if(getCookie('theme')==null){
+			setCookie('theme', 'original');
+			$('#origin').text('done');
+		} else {
+			//현재페이지에 들어오면 theme쿠키를 읽어들여 선택된배경에 체크 표시해주기_2021.04.27
+			let presentTheme = getCookie('theme');
+			let span = '';
+			if(presentTheme=='original'){
+				span='origin';
+			} else if(presentTheme=='dark'){
+				span='dar';
+			} else if(presentTheme=='fa'){
+				span='ffa';
+			}
+			$('#'+span).text('done');
+		}
+		
 		//일단 모든 nav__link--active 활성화 클래스를 제거하고 
 		$("#home").removeClass("nav__link--active");
 		$("#search").removeClass("nav__link--active");
@@ -122,9 +143,40 @@
 		$("#setting").addClass("nav__link--active");
 	});	
 	
-	if(getCookie('theme')==null) { // 안먹힘,,
-		setCookie('theme', 'original');
-		$('#original').children('.check').text('done');
+	//배경색설정효과_2021.04.27
+	if(getCookie('theme')!=null) {
+		let theme = getCookie('theme');
+		if(theme=='original'){
+			$('#previous').css('color','#121212');
+		} else if(theme=='dark'){
+			//home
+			$('.top_nav').css('background','#121212');
+			$('.container').css('background','#121212');
+			$('body').css('background','#121212');
+			$('section').css('background-color','#808e95');
+			$('#previous').css('color','#ffffff');
+			//nav
+			$('.nav').css('background','#121212');
+			$('.nav').css('color','#bbbbbb');
+			$('.material-icons-outlined').css('text-color','#bbbbbb');
+		} else if(theme=='fa'){
+			//home
+			$('.container').css('background','#135fa1');
+			$('body').css('background','#135fa1');
+			$('.top_nav').css('background','#1976d2');
+			$('.col').css('background','#135fa1');
+			$('section').css('background-color','#aed581');
+			$('#previous').css('color','#ffffff');
+			//nav
+			$('.nav').css('background','#1976d2');
+			$('.nav').css('text-color','#ffffff');
+		}
+	}
+	
+	//기본언어설정에 따른 효과_2021.04.27
+	if(getCookie('isKr')=='yes'){
+		$('.title').text('배경색 선택하기');
+		$('.title').css('font-family',"'Nanum Pen Script', cursive");
 	}
 	
 	//리스트 선택시 리스너_2021.04.26
@@ -133,9 +185,17 @@
 		let id = $(this).attr('id');
 		//쿠키설정
 		setCookie('theme', id);
-		//선택했다고 체크해주기
-		$('.check').text('');
-		$(this).children('.check').text('done'); // 안먹힘,,
+		//span에 text를 추가하기 위해(체크마크를 추가하기위해)
+		let span = '';
+		if(id=='original'){
+			span='origin';
+		} else if(id=='dark'){
+			span='dar';
+		} else if(id=='fa'){
+			span='ffa';
+		}
+		$('#'+span).text('done');
+		location.reload();
 	});
 	
 	//쿠키 생성 메소드_2021.04.23

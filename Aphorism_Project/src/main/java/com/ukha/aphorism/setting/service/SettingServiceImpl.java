@@ -37,13 +37,15 @@ public class SettingServiceImpl implements SettingService{
 				String key = tmp.getName();
 				if(key.equals("like")) { // 쿠키의 키값이 like 라면 
 					likeCookie = tmp.getValue();
-				} else if(!(key.contains("like"))) { // 쿠키 like 자체가 존재하지 않으면 null을 리턴
-					return null;
-				}
+				} 
 			}
 		}
-		
+		//'like'쿠키 없을때 500번 버스타는거 방지_2021.04.27
+		if(likeCookie==null) {
+			return null;
+		}
 		String[] likeArr = likeCookie.split("@");
+	
 		
 		String requestUrl = "https://dkdkdkdk555.github.io/Aphorism_data/data.jsp";
 		

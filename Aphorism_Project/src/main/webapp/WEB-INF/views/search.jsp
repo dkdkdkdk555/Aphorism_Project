@@ -160,6 +160,37 @@
 		
 	});	
 	
+	//배경색설정효과_2021.04.27
+	if(getCookie('theme')!=null) {
+		let theme = getCookie('theme');
+		if(theme=='original'){
+		
+		} else if(theme=='dark'){
+			//home
+			$('.top_nav').css('background','#121212');
+			$('.top_nav').children('li').css('color','#bbbbbb');//상단탭 메뉴글자 색
+			$('.container').css('background','#121212');
+			$('body').css('background','#121212');
+			$('section').css('background-color','#808e95');
+			//nav
+			$('.nav').css('background','#121212');
+			$('.nav').css('color','#bbbbbb');
+			$('.material-icons-outlined').css('text-color','#bbbbbb');
+		} else if(theme=='fa'){
+			//home
+			$('.container').css('background','#135fa1');
+			$('body').css('background','#135fa1');
+			$('.top_nav').css('background','#1976d2');
+			$('.top_nav').children('li').css('color','#ffffff');//상단탭 메뉴글자 색
+			$('.col').css('background','#135fa1');
+			$('section').css('background-color','#aed581');
+			//nav
+			$('.nav').css('background','#1976d2');
+			$('.nav').css('text-color','#ffffff');
+		}
+	}
+
+	
 	//'isKr'한글모드일때  _2021.04.26
 	if(getCookie('isKr')=='yes'){
 		$('.input').attr('placeholder', '검색어를 입력 하세요');

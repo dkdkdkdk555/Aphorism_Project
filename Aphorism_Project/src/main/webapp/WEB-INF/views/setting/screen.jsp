@@ -64,7 +64,7 @@
 <div>
 	<nav class="top_nav">
 		<a href="../setting/setting.do"><!-- 이전 페이지 -->
-			<img src="${pageContext.request.contextPath }/resources/svg/previous.svg" class="button" type="button" id="previous"/>
+			<span class="material-icons" id="previous">keyboard_backspace</span>
 		</a>
 	</nav>
 	<section class="py-5 text-center container"><!-- 페이지 소개섹션 -->

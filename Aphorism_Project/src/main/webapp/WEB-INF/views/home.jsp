@@ -13,6 +13,11 @@
 		height:100%;
 		width: 100%;
 	}
+	
+	html.dark{
+		background: #121212;
+		color:#bbbbbb;
+	}
 
 	button{
 		border:0; 
@@ -101,7 +106,7 @@
 					<span class="material-icons-outlined" id="lan">en</span>
 				</button>
 				<button class="nav__link" id="like_border_btn">
-					<img src="${pageContext.request.contextPath }/resources/svg/like.svg" id="like_border_img" />
+					<i class="material-icons" id="like_border_img">favorite_border</i>
 					<span class="material-icons-outlined" id="like">like</span>
 				</button>
 			</div>
@@ -132,6 +137,37 @@
 		$("#home").addClass("nav__link--active");
 		
 	});
+	
+	//배경색설정효과_2021.04.27
+	if(getCookie('theme')!=null) {
+		let theme = getCookie('theme');
+		if(theme=='original'){
+		
+		} else if(theme=='dark'){
+			//home
+			$('.container').css('background','#121212');
+			$('.container').css('color','#bbbbbb');
+			$('body').css('background','#121212');
+			$('body').css('color','#bbbbbb');
+			$('button').css('background-color','#121212');
+			$('button').css('color','#bbbbbb');
+			//nav
+			$('.nav').css('background','#121212');
+			$('.nav').css('color','#bbbbbb');
+			$('.material-icons-outlined').css('text-color','#bbbbbb');
+		} else if(theme=='fa'){
+			//home
+			$('.container').css('background','#135fa1');
+			$('.container').css('color','#ffffff');
+			$('body').css('background','#135fa1');
+			$('body').css('color','#ffffff');
+			$('button').css('background-color','#135fa1');
+			$('button').css('color','#ffffff');
+			//nav
+			$('.nav').css('background','#1976d2');
+			$('.nav').css('color','#ffffff');
+		}
+	}
 	
 	//language_btn을 누르면 바로 언어가 바뀌게 하기 위해 담을 변수들
 	let desK = null;
@@ -229,8 +265,8 @@
 				// 명언의 좋아요 여부 검사
 				if(isLike(data["id"]) == false){
 					$("#like").text('like');
-					$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/like.svg');
-					$("#like_border_img").attr('style', 'width:24px;');
+					$("#like_border_img").text('favorite_border');
+					$('#like_border_img').css('color','');
 				}
 			}
 		})
@@ -267,8 +303,8 @@
 				// 명언의 좋아요 여부 검사
 				if(isLike(data["id"]) == false){
 					$("#like").text('like');
-					$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/like.svg');
-					$("#like_border_img").attr('style', 'width:24px;');
+					$("#like_border_img").text('favorite_border');
+					$('#like_border_img').css('color','');
 				}
 				
 			}
@@ -281,8 +317,8 @@
 		let text = $("#like").text();
 		if(text=="like"){ //좋아요를 눌렀다면 
 			$("#like").text('unlike');
-			$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/heart.svg');
-			$("#like_border_img").attr('style', 'width:20px;');//svg크기 보정
+			$("#like_border_img").text('favorite');
+			$('#like_border_img').css('color','#f44336');
 			
 			//현재 명언의 id값
 			let id = $('#id').text();
@@ -306,8 +342,8 @@
 			
 		} else { //좋아요를 취소한다면
 			$("#like").text('like');
-			$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/like.svg');
-			$("#like_border_img").attr('style', 'width:24px;');//svg크기 보정
+			$("#like_border_img").text('favorite_border');
+			$('#like_border_img').css('color','');
 			
 			//쿠키에서 삭제
 			//1.현재 쿠키밸류를 얻어옴
@@ -364,8 +400,8 @@
 				if(parseInt(ele) == id){ //배열의 요소가 현재 명언의 id와 같다면 
 					//빨간하트로 바꿔주기
 					$("#like").text('unlike');
-					$("#like_border_img").attr('src', '${pageContext.request.contextPath }/resources/svg/heart.svg');
-					$("#like_border_img").attr('style', 'width:20px;');
+					$("#like_border_img").text('favorite');
+					$('#like_border_img').css('color','#f44336');
 					return true; //종료
 				}
 			}

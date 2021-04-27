@@ -144,12 +144,6 @@
 <script>
 	//category화면이라면 category메뉴탭을 활성화 시킨다_2021.04.16
 	$(document).ready(function(){
-		// 한영전체설정_2021.04.26
-		if(getCookie('isKr')=='yes'){
-			$("#kr").trigger("click");//언어설정 한글이면 한글부터 보이게
-		} else {
-			$("#en").trigger("click");
-		}
 		//일단 모든 nav__link--active 활성화 클래스를 제거하고 
 		$("#home").removeClass("nav__link--active");
 		$("#search").removeClass("nav__link--active");
@@ -157,8 +151,44 @@
 		//탭을 클랙했으니까 해당 클래스에 탭 추가 
 		$("#category").addClass("nav__link--active");
 		
+		// 한영전체설정_2021.04.26
+		if(getCookie('isKr')=='yes'){
+			$("#kr").trigger("click");//언어설정 한글이면 한글부터 보이게
+		} else {
+			$("#en").trigger("click");
+		}
 	});	
 	
+	//배경색설정효과_2021.04.27
+	if(getCookie('theme')!=null) {
+		let theme = getCookie('theme');
+		if(theme=='original'){
+		
+		} else if(theme=='dark'){
+			//home
+			$('.top_nav').css('background','#121212');
+			$('.top_nav').children('li').css('color','#bbbbbb');//상단탭 메뉴글자 색
+			$('.container').css('background','#121212');
+			$('body').css('background','#121212');
+			$('section').css('background-color','#808e95');
+			//nav
+			$('.nav').css('background','#121212');
+			$('.nav').css('color','#bbbbbb');
+			$('.material-icons-outlined').css('text-color','#bbbbbb');
+		} else if(theme=='fa'){
+			//home
+			$('.container').css('background','#135fa1');
+			$('body').css('background','#135fa1');
+			$('.top_nav').css('background','#1976d2');
+			$('.top_nav').children('li').css('color','#e0e0e0');//상단탭 메뉴글자 색
+			$('.col').css('background','#135fa1');
+			$('section').css('background-color','#aed581');
+			//nav
+			$('.nav').css('background','#1976d2');
+		
+		}
+	}
+
 	
 	//category 첫화면에서 아무것도 안보이니까 뭐라도 보이게하기_2021.04.19
 	$(document).ready(function(){
@@ -177,7 +207,7 @@
 		$(this).attr('class', 'btn btn-secondary'); // 그러곤 클릭한 버튼에서 outline제거
 		//영어로 바꿈
 		enMode = true;
-		$(".top_nav").children("#"+id).trigger("click");// let id로 저장되어있는 카테고리바 li요소를 트리거로 클릭한다
+		$(".top_nav").children('#'+id).trigger("click");// let id로 저장되어있는 카테고리바 li요소를 트리거로 클릭한다
 	});
 	
 	$("#kr").on("click", function(){
@@ -186,7 +216,7 @@
 		$(this).attr('class', 'btn btn-secondary');
 		//한글로 바꿈
 		enMode = false;
-		$(".top_nav").children("#"+id).trigger("click");
+		$(".top_nav").children('#'+id).trigger("click");//
 	});
 	
 	//카테고리 li 선택시 명언데이터 불러오기_2021.04.16 -> 수정 4.17

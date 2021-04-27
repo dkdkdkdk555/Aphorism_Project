@@ -138,6 +138,39 @@
 		
 	});	
 	
+	//배경색설정효과_2021.04.27
+	if(getCookie('theme')!=null) {
+		let theme = getCookie('theme');
+		if(theme=='original'){
+		
+		} else if(theme=='dark'){
+			//home
+			$('.container').css('background','#121212');
+			$('.container').css('color','#bbbbbb');
+			$('body').css('background','#121212');
+			$('body').css('color','#bbbbbb');
+			$('button').css('background-color','#121212');
+			$('button').css('color','#bbbbbb');
+			$('#language').find('img').attr('src', '${pageContext.request.contextPath }/resources/svg/translate_dark.svg');
+			//nav
+			$('.nav').css('background','#121212');
+			$('.nav').css('color','#bbbbbb');
+			$('.material-icons-outlined').css('text-color','#bbbbbb');
+		} else if(theme=='fa'){
+			//home
+			$('.container').css('background','#135fa1');
+			$('.container').css('color','#ffffff');
+			$('body').css('background','#135fa1');
+			$('body').css('color','#ffffff');
+			$('button').css('background-color','#135fa1');
+			$('button').css('color','#ffffff');
+			$('#language').find('img').attr('src', '${pageContext.request.contextPath }/resources/svg/translate_dark.svg');
+			//nav
+			$('.nav').css('background','#1976d2');
+			$('.nav').css('color','#ffffff');
+		}
+	}
+	
 	//좋아요 모아보기 페이지로 이동_2021.04.24
 	$("#likes").on('click', function(){
 		location.href ='${pageContext.request.contextPath }/setting/like.do';

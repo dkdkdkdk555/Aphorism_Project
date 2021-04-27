@@ -55,6 +55,7 @@
 		flex-grow:1;
 		height:24px;
 		width:24px;
+		color: #121212;
 	}
 	
 	/* 페이지 소개섹션 */
@@ -83,7 +84,7 @@
 <div>
 	<nav class="top_nav">
 		<a href="../setting/setting.do"><!-- 이전 페이지 -->
-			<img src="${pageContext.request.contextPath }/resources/svg/previous.svg" class="button" type="button" id="previous"/>
+			<span class="material-icons" id="previous">keyboard_backspace</span>
 		</a>
 	</nav>
 	<section class="py-5 text-center container"><!-- 페이지 소개섹션 -->
@@ -131,6 +132,36 @@
 		//탭을 클랙했으니까 해당 클래스에 탭 추가 
 		$("#setting").addClass("nav__link--active");
 	});	
+	
+	//배경색설정효과_2021.04.27
+	if(getCookie('theme')!=null) {
+		let theme = getCookie('theme');
+		if(theme=='original'){
+			$('#previous').css('color','#121212');
+		} else if(theme=='dark'){
+			//home
+			$('.top_nav').css('background','#121212');
+			$('.container').css('background','#121212');
+			$('body').css('background','#121212');
+			$('section').css('background-color','#808e95');
+			$('#previous').css('color','#ffffff');
+			//nav
+			$('.nav').css('background','#121212');
+			$('.nav').css('color','#bbbbbb');
+			$('.material-icons-outlined').css('text-color','#bbbbbb');
+		} else if(theme=='fa'){
+			//home
+			$('.container').css('background','#135fa1');
+			$('body').css('background','#135fa1');
+			$('.top_nav').css('background','#1976d2');
+			$('.col').css('background','#135fa1');
+			$('section').css('background-color','#aed581');
+			$('#previous').css('color','#ffffff');
+			//nav
+			$('.nav').css('background','#1976d2');
+			$('.nav').css('text-color','#ffffff');
+		}
+	}
 	
 	//기본언어설정에 따른 효과_2021.04.26
 	if(getCookie('isKr')=='yes'){
