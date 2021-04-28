@@ -77,7 +77,29 @@
 	</section>
 </div>
 <div class="container">
-	
+	<!-- 영어 선택 셀렉터_2021.04.28 -->
+	<select class="form-select" id="eng" aria-label="Default select example">
+	  <option selected>Select font of English</option>
+	  <option value="Indie" style="font-family:'Indie Flower',cursive;">Indie Flower</option>
+	  <option value="Dancing" style="font-family:'Dancing Script', cursive;">Dancing Script</option>
+	  <option value="Roboto" style="font-family:'Roboto', sans-serif;">Roboto</option>
+	  <option value="Patrick" style="font-family:'Patrick Hand', cursive;">Patrick Hand</option>
+	  <option value="Cormorant" style="font-family:'Cormorant Garamond', serif;">Cormorant Garamond</option>
+	  <option value="Unif" style="font-family:'UnifrakturCok', cursive;">UnifrakturCok</option>
+	  <option value="Monoton" style="font-family:'Monoton', cursive;">Monoton</option>
+	  <option value="Fredericka" style="font-family:'Fredericka the Great', cursive;">Fredericka the Great</option>
+	</select><br />
+	<!-- 한국어 선택 셀렉터_2021.04.28 -->
+	<select class="form-select" id="kor" aria-label="Default select example">
+	  <option selected>한글 폰트 선택</option>
+	  <option value="Noto" style="font-family:'Noto Sans KR', sans-serif;">노토 산스체</option>
+	  <option value="Gaegu" style="font-family:'Gaegu', cursive;">개구체</option>
+	  <option value="Cute" style="font-family:'Cute Font', cursive;">귀여운 글씨체</option>
+	  <option value="Single" style="font-family:'Single Day', cursive;">싱글데이</option>
+	  <option value="DoHyeon" style="font-family:'Do Hyeon', sans-serif;">도현 글씨체</option>
+	  <option value="Gothic" style="font-family:'Gothic A1', sans-serif;">고틱 에이원체</option>
+	  <option value="Black" style="font-family:'Black Han Sans', sans-serif;">블랙 한 산스체</option>
+	</select>
 </div>
 <div></div>
 <jsp:include page="../include/bottom_nav.jsp"></jsp:include>
@@ -92,6 +114,82 @@
 		//탭을 클랙했으니까 해당 클래스에 탭 추가 
 		$("#setting").addClass("nav__link--active");
 	});	
+	
+	//'isKr'한글모드일때  _2021.04.26
+	if(getCookie('isKr')=='yes'){
+		
+	}
+	
+	//폰트 선택시_2021.04.28
+	//영어 폰트 바꾸기
+	$('#eng').change(function(){
+		//쿠키생성하기
+		setCookie("enFont","");
+		setCookie("enFont", this.value);
+	});
+	
+	//한글 폰트 바꾸기
+	$('#kor').change(function(){
+		//쿠키생성하기
+		setCookie("krFont", "");
+		setCookie("krFont", this.value);
+	});
+	
+	//배경색설정효과_2021.04.27
+	if(getCookie('theme')!=null) {
+		let theme = getCookie('theme');
+		if(theme=='original'){
+			$('#previous').css('color','#121212');
+		} else if(theme=='dark'){
+			//home
+			$('.top_nav').css('background','#121212');
+			$('.container').css('background','#121212');
+			$('body').css('background','#121212');
+			$('section').css('background-color','#808e95');
+			$('#previous').css('color','#ffffff');
+			//nav
+			$('.nav').css('background','#121212');
+			$('.nav').css('color','#bbbbbb');
+			$('.material-icons-outlined').css('text-color','#bbbbbb');
+		} else if(theme=='fa'){
+			//home
+			$('.container').css('background','#135fa1');
+			$('body').css('background','#135fa1');
+			$('.top_nav').css('background','#1976d2');
+			$('.col').css('background','#135fa1');
+			$('section').css('background-color','#aed581');
+			$('#previous').css('color','#ffffff');
+			//nav
+			$('.nav').css('background','#1976d2');
+			$('.nav').css('text-color','#ffffff');
+		}
+	}
+	
+	//쿠키 생성 메소드_2021.04.23
+	function setCookie(key, value) {
+	    let expiration_date = new Date();
+	   	expiration_date.setFullYear(expiration_date.getFullYear()+1);// 시간을 1년으로 지정
+	    document.cookie = key + "=" + escape(value) + "; path=/; expires=" + expiration_date.toUTCString();
+	}
+	
+	
+	//쿠키 가져오는 메소드_2021.04.23
+	function getCookie(key) {
+		let result = null;
+		let cookie = document.cookie.split(';');// 쿠키 문자열을 ';'를 기준으로 나누고 배열을 리턴 
+	    cookie.some(function(item){ // cookie 배열을 가지고 some의 테스트 함수를 실행시켜 하나의 엘리먼트라도 true면은 true를 리턴하는 메소드 .some() (근데 여기선 걍 배열 요소들 가지고 함수 실행만)
+	      
+	        item = item.replace(' ', '');// 공백을 제거
+	 
+	        let dic = item.split('=');// 각 인덱스를 '='기준으로 또 나눔
+	 
+	        if (key === dic[0]) { // = 의 좌측이 전달받은 key 와 같다면
+	            result = dic[1]; // 결과로 value를 담고 (쿠키값 얻어내기)
+	            return true;    // getCookie메소드를 종료
+	        }
+	    });
+	    return result; //키값과 일치하는 쿠키가 없다면 null을 리턴
+	}
 	
 </script>
 </html>

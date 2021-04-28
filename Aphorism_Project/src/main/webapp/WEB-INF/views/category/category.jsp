@@ -37,7 +37,7 @@
 		flex-grow:1;
 		list-style:none;
 		padding:0 10px;
-		font-family: 'Indie Flower', cursive;
+		font-family: 'Dancing Script', cursive;
 		font-weight: bold;	
 	}
 
@@ -87,12 +87,10 @@
 
 	/*임시*/
 	.card-text {
-		font-family: 'Nanum Pen Script', cursive;
 		text-align: center;
 	}
 	
 	.card-subtitle {
-		font-family: 'Nanum Pen Script', cursive;
 		text-align: center;
 	}
 	
@@ -208,6 +206,40 @@
 		//영어로 바꿈
 		enMode = true;
 		$(".top_nav").children('#'+id).trigger("click");// let id로 저장되어있는 카테고리바 li요소를 트리거로 클릭한다
+		
+		// 폰트체 수정에 의한 폰트체 설정_2021.04.28--->>>>>>>>>>>>>>>>>>>>>>>>>>>> 여기선 폰트체가 수정안된다.
+		if(getCookie('enFont')!=null) { // 영어 폰트 선택 시 폰트 수정_2021.04.28
+			let font = getCookie('enFont');
+			let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+			switch(font) {
+				case "Indie":
+					inputFont = "'Indie Flower',cursive";
+					break;
+				case "Dancing":
+					inputFont = "'Dancing Script', cursive";
+					break;
+				case "Roboto":
+					inputFont = "'Roboto', sans-serif";
+					break;
+				case "Patrick":
+					inputFont = "'Patrick Hand', cursive";
+					break;
+				case "Cormorant":
+					inputFont = "'Cormorant Garamond', serif";
+					break;
+				case "Unif":
+					inputFont = "'UnifrakturCok', cursive";
+					break;
+				case "Monoton":
+					inputFont = "'Monoton', cursive";
+					break;
+				case "Fredericka":
+					inputFont = "'Fredericka the Great', cursive";
+					break;
+			}
+			$(".card-text").css("font-family",""+inputFont);
+			$(".card-subtitle").css("font-family",""+inputFont);
+		}
 	});
 	
 	$("#kr").on("click", function(){
@@ -216,7 +248,37 @@
 		$(this).attr('class', 'btn btn-secondary');
 		//한글로 바꿈
 		enMode = false;
-		$(".top_nav").children('#'+id).trigger("click");//
+		$(".top_nav").children('#'+id).trigger("click");
+		// 폰트체 수정에 의한 폰트체 설정_2021.04.28 --->>>>>>>>>>>>>>>>>>>>>>>>>>>> 여기선 폰트체가 수정안된다.
+		if(getCookie('krFont')!= null) { // 한글 폰트 선택 시 폰트 수정_2021.04.28
+			let font = getCookie('krFont');
+			let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+			switch(font) {
+				case "Noto":
+					inputFont = "'Noto Sans KR', sans-serif";
+					break;
+				case "Gaggu":
+					inputFont = "'Gaegu', cursive";
+					break;
+				case "Cute":
+					inputFont = "'Cute Font', cursive";
+					break;
+				case "Single":
+					inputFont = "'Single Day', cursive";
+					break;
+				case "DoHyeon":
+					inputFont = "'Do Hyeon', sans-serif";
+					break;
+				case "Gothic":
+					inputFont = "'Gothic A1', sans-serif";
+					break;
+				case "Black":
+					inputFont = "'Black Han Sans', sans-serif";
+					break;
+			}
+			$(".card-text").css("font-family",""+inputFont);
+			$(".card-subtitle").css("font-family",""+inputFont);	
+		}
 	});
 	
 	//카테고리 li 선택시 명언데이터 불러오기_2021.04.16 -> 수정 4.17
@@ -259,7 +321,6 @@
 						$('#'+i).find('.card-body').append($('<p class="card-text">' + item['descripE'] + '</p>')); 
 						$('#'+i).find('.card-body').append($('<p class="card-subtitle">' + '-' + item['authE'] + '</p>'));
 					}
-				
 				}
 			}
 		})

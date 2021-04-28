@@ -186,18 +186,75 @@
 			enMode = true; // en버튼 누르면 텍스트가 kr로바뀌면서 영어모드가됨
 			$("#description").text(desE);
 			$("#author").text("-"+autE);
-			//영어 일 때는 roboto체로 바꾸기 
-			$("#description").css('font-family',"'Indie Flower', cursive");
-			$("#author").css('font-family',"'Indie Flower', cursive");
+			// 영어 폰트 선택 시 폰트 수정_2021.04.28
+			if(getCookie('enFont')!=null) { 
+				let font = getCookie('enFont');
+				let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+				switch(font) {
+					case "Indie":
+						inputFont = "'Indie Flower',cursive";
+						break;
+					case "Dancing":
+						inputFont = "'Dancing Script', cursive";
+						break;
+					case "Roboto":
+						inputFont = "'Roboto', sans-serif";
+						break;
+					case "Patrick":
+						inputFont = "'Patrick Hand', cursive";
+						break;
+					case "Cormorant":
+						inputFont = "'Cormorant Garamond', serif";
+						break;
+					case "Unif":
+						inputFont = "'UnifrakturCok', cursive";
+						break;
+					case "Monoton":
+						inputFont = "'Monoton', cursive";
+						break;
+					case "Fredericka":
+						inputFont = "'Fredericka the Great', cursive";
+						break;
+				}
+				$("#description").css('font-family',""+inputFont);
+				$("#author").css('font-family',""+inputFont);
+			}
 		} else {
 			$("#lan").text("en"); // kr을 누르면 불빛이 사라지고 텍스트가 en으로 바뀌면서 한글모드가 됨
 			$("#lan_icon").removeClass("nav__link--active");
 			enMode = false;
 			$("#description").text(desK);
 			$("#author").text("-"+autK);
-			//한글 일 때는 나눔명조체로 바꾸기 
-			$("#description").css('font-family',"'Nanum Pen Script', cursive");
-			$("#author").css('font-family',"'Nanum Pen Script', cursive");
+			// 한글 폰트 선택 시 폰트 수정_2021.04.28
+			if(getCookie('krFont')!= null) { 
+				let font = getCookie('krFont');
+				let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+				switch(font) {
+					case "Noto":
+						inputFont = "'Noto Sans KR', sans-serif";
+						break;
+					case "Gaegu":
+						inputFont = "'Gaegu', cursive";
+						break;
+					case "Cute":
+						inputFont = "'Cute Font', cursive";
+						break;
+					case "Single":
+						inputFont = "'Single Day', cursive";
+						break;
+					case "DoHyeon":
+						inputFont = "'Do Hyeon', sans-serif";
+						break;
+					case "Gothic":
+						inputFont = "'Gothic A1', sans-serif";
+						break;
+					case "Black":
+						inputFont = "'Black Han Sans', sans-serif";
+						break;
+				}
+				$("#description").css('font-family',""+inputFont);
+				$("#author").css('font-family',""+inputFont);	
+			}
 		}
 	});
 	
@@ -217,8 +274,69 @@
 				autK = data["authK"];
 				autE = data["authE"];
 				size = data["size"]; // 총 명언의 갯수 수정
-				$("#description").css('font-family',"'Nanum Pen Script', cursive");
-				$("#author").css('font-family',"'Nanum Pen Script', cursive");
+				if(getCookie('krFont')!= null) { // 한글 폰트 선택 시 폰트 수정_2021.04.28
+					let font = getCookie('krFont');
+					console.log(font);
+					let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+					switch(font) {
+						case "Noto":
+							inputFont = "'Noto Sans KR', sans-serif";
+							break;
+						case "Gaegu":
+							inputFont = "'Gaegu', cursive";
+							break;
+						case "Cute":
+							inputFont = "'Cute Font', cursive";
+							break;
+						case "Single":
+							inputFont = "'Single Day', cursive";
+							break;
+						case "DoHyeon":
+							inputFont = "'Do Hyeon', sans-serif";
+							break;
+						case "Gothic":
+							inputFont = "'Gothic A1', sans-serif";
+							break;
+						case "Black":
+							inputFont = "'Black Han Sans', sans-serif";
+							break;
+					}
+					console.log(inputFont);
+					$("#description").css("font-family",""+inputFont);
+					$("#author").css("font-family",""+inputFont);	
+				}
+				if(getCookie('enFont')!=null) { // 영어 폰트 선택 시 폰트 수정_2021.04.28
+					let font = getCookie('enFont');
+					let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+					switch(font) {
+						case "Indie":
+							inputFont = "'Indie Flower',cursive";
+							break;
+						case "Dancing":
+							inputFont = "'Dancing Script', cursive";
+							break;
+						case "Roboto":
+							inputFont = "'Roboto', sans-serif";
+							break;
+						case "Patrick":
+							inputFont = "'Patrick Hand', cursive";
+							break;
+						case "Cormorant":
+							inputFont = "'Cormorant Garamond', serif";
+							break;
+						case "Unif":
+							inputFont = "'UnifrakturCok', cursive";
+							break;
+						case "Monoton":
+							inputFont = "'Monoton', cursive";
+							break;
+						case "Fredericka":
+							inputFont = "'Fredericka the Great', cursive";
+							break;
+					}
+					$("#description").css("font-family",""+inputFont);
+					$("#author").css("font-family",""+inputFont);
+				}
 				if(enMode) { //지금이 한글모드이면  
 					$("#description").text(""+data["descripE"]);
 					$("#author").text("-"+data["authE"]);

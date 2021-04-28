@@ -124,7 +124,7 @@
 <body>
 <nav class="top_nav">
 	<form class="form">
-		<img src="${pageContext.request.contextPath }/resources/svg/searchIcon.svg" class="button" type="button" id="searchLogo"/>
+		<i class="material-icons" id="searchLogo">search</i>
 		<input class="input" placeholder="Type here to search" id="keywordInsert">
 	</form>
 </nav>
@@ -172,6 +172,7 @@
 			$('.container').css('background','#121212');
 			$('body').css('background','#121212');
 			$('section').css('background-color','#808e95');
+			$('#searchLogo').css('color', '#ffffff');
 			//nav
 			$('.nav').css('background','#121212');
 			$('.nav').css('color','#bbbbbb');
