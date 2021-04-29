@@ -53,7 +53,6 @@
 	
 	/* 페이지 소개섹션의 타이틀 문구 */
 	.title{
-		font-family:'Indie Flower', cursive;
 		font-weight: bold;
 		font-size:24px;
 		margin-bottom:0px;

@@ -183,9 +183,12 @@
 		if(lan == "en") {
 			$("#lan").text("kr");
 			$("#lan_icon").addClass("nav__link--active");
+			
 			enMode = true; // en버튼 누르면 텍스트가 kr로바뀌면서 영어모드가됨
+			
 			$("#description").text(desE);
 			$("#author").text("-"+autE);
+			
 			// 영어 폰트 선택 시 폰트 수정_2021.04.28
 			if(getCookie('enFont')!=null) { 
 				let font = getCookie('enFont');
@@ -225,6 +228,7 @@
 			enMode = false;
 			$("#description").text(desK);
 			$("#author").text("-"+autK);
+			
 			// 한글 폰트 선택 시 폰트 수정_2021.04.28
 			if(getCookie('krFont')!= null) { 
 				let font = getCookie('krFont');
@@ -274,75 +278,77 @@
 				autK = data["authK"];
 				autE = data["authE"];
 				size = data["size"]; // 총 명언의 갯수 수정
-				if(getCookie('krFont')!= null) { // 한글 폰트 선택 시 폰트 수정_2021.04.28
-					let font = getCookie('krFont');
-					console.log(font);
-					let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
-					switch(font) {
-						case "Noto":
-							inputFont = "'Noto Sans KR', sans-serif";
-							break;
-						case "Gaegu":
-							inputFont = "'Gaegu', cursive";
-							break;
-						case "Cute":
-							inputFont = "'Cute Font', cursive";
-							break;
-						case "Single":
-							inputFont = "'Single Day', cursive";
-							break;
-						case "DoHyeon":
-							inputFont = "'Do Hyeon', sans-serif";
-							break;
-						case "Gothic":
-							inputFont = "'Gothic A1', sans-serif";
-							break;
-						case "Black":
-							inputFont = "'Black Han Sans', sans-serif";
-							break;
-					}
-					console.log(inputFont);
-					$("#description").css("font-family",""+inputFont);
-					$("#author").css("font-family",""+inputFont);	
-				}
-				if(getCookie('enFont')!=null) { // 영어 폰트 선택 시 폰트 수정_2021.04.28
-					let font = getCookie('enFont');
-					let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
-					switch(font) {
-						case "Indie":
-							inputFont = "'Indie Flower',cursive";
-							break;
-						case "Dancing":
-							inputFont = "'Dancing Script', cursive";
-							break;
-						case "Roboto":
-							inputFont = "'Roboto', sans-serif";
-							break;
-						case "Patrick":
-							inputFont = "'Patrick Hand', cursive";
-							break;
-						case "Cormorant":
-							inputFont = "'Cormorant Garamond', serif";
-							break;
-						case "Unif":
-							inputFont = "'UnifrakturCok', cursive";
-							break;
-						case "Monoton":
-							inputFont = "'Monoton', cursive";
-							break;
-						case "Fredericka":
-							inputFont = "'Fredericka the Great', cursive";
-							break;
-					}
-					$("#description").css("font-family",""+inputFont);
-					$("#author").css("font-family",""+inputFont);
-				}
-				if(enMode) { //지금이 한글모드이면  
+				if(enMode) { //지금이 영어모드이면 
 					$("#description").text(""+data["descripE"]);
 					$("#author").text("-"+data["authE"]);
-				} else { //지금이 영어 모드이면
+				
+					if(getCookie('enFont')!=null) { // 영어 폰트 선택 시 폰트 수정_2021.04.28
+						let font = getCookie('enFont');
+						let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+						switch(font) {
+							case "Indie":
+								inputFont = "'Indie Flower',cursive";
+								break;
+							case "Dancing":
+								inputFont = "'Dancing Script', cursive";
+								break;
+							case "Roboto":
+								inputFont = "'Roboto', sans-serif";
+								break;
+							case "Patrick":
+								inputFont = "'Patrick Hand', cursive";
+								break;
+							case "Cormorant":
+								inputFont = "'Cormorant Garamond', serif";
+								break;
+							case "Unif":
+								inputFont = "'UnifrakturCok', cursive";
+								break;
+							case "Monoton":
+								inputFont = "'Monoton', cursive";
+								break;
+							case "Fredericka":
+								inputFont = "'Fredericka the Great', cursive";
+								break;
+						}
+						$("#description").css("font-family",""+inputFont);
+						$("#author").css("font-family",""+inputFont);
+					}
+				} else { //지금이 한글 모드이면
 					$("#description").text(""+data["descripK"]);
 					$("#author").text("-"+data["authK"]);
+
+					if(getCookie('krFont')!= null) { // 한글 폰트 선택 시 폰트 수정_2021.04.28
+						let font = getCookie('krFont');
+						console.log(font);
+						let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+						switch(font) {
+							case "Noto":
+								inputFont = "'Noto Sans KR', sans-serif";
+								break;
+							case "Gaegu":
+								inputFont = "'Gaegu', cursive";
+								break;
+							case "Cute":
+								inputFont = "'Cute Font', cursive";
+								break;
+							case "Single":
+								inputFont = "'Single Day', cursive";
+								break;
+							case "DoHyeon":
+								inputFont = "'Do Hyeon', sans-serif";
+								break;
+							case "Gothic":
+								inputFont = "'Gothic A1', sans-serif";
+								break;
+							case "Black":
+								inputFont = "'Black Han Sans', sans-serif";
+								break;
+						}
+						console.log(inputFont);
+						$("#description").css("font-family",""+inputFont);
+						$("#author").css("font-family",""+inputFont);	
+					}
 				}
 				
 				// 명언의 좋아요 여부 검사

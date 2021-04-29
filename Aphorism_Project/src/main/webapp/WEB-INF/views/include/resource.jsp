@@ -10,7 +10,7 @@
 <!-- 구글 폰트 적용하기 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <!-- 한글 적용 폰트 -->
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Cute+Font&family=Single+Day&family=Do+Hyeon&family=Gothic+A1:wght@200&family=Black+Han+Sans&
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Cute+Font&family=Single+Day&family=Do+Hyeon&family=Gothic+A1:wght@200&family=Black+Han+Sans&
 	family=Gaegu:wght@300&display=swap" rel="stylesheet">
 <!-- 영어 적용 폰트 -->
 <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Dancing+Script&family=Cormorant+Garamond:ital,wght@1,300&family=Patrick+Hand&family=UnifrakturCook:wght@700&family=Monoton&family=Fredericka+the+Great&

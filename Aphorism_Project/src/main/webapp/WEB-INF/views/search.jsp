@@ -208,6 +208,7 @@
 	let descE = [];
 	let autE = [];
 	
+	//영어로 보기
 	$("#en").on("click", function(){
 		//버튼 효과
 		$(".btn-group").children("button").attr('class', 'btn btn-outline-secondary');//우선 모든 버튼을 outline으로 만듬
@@ -218,9 +219,43 @@
 			$("#"+i).find('.card-text').text(descE[i]);
 			$("#"+i).find('.card-subtitle').text("-"+ autE[i]);
 		}
+		// 폰트체 수정에 의한 폰트체 설정_2021.04.28
+		if(getCookie('enFont')!=null) { // 영어 폰트 선택 시 폰트 수정_2021.04.28
+			let font = getCookie('enFont');
+			let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+			switch(font) {
+				case "Indie":
+					inputFont = "'Indie Flower',cursive";
+					break;
+				case "Dancing":
+					inputFont = "'Dancing Script', cursive";
+					break;
+				case "Roboto":
+					inputFont = "'Roboto', sans-serif";
+					break;
+				case "Patrick":
+					inputFont = "'Patrick Hand', cursive";
+					break;
+				case "Cormorant":
+					inputFont = "'Cormorant Garamond', serif";
+					break;
+				case "Unif":
+					inputFont = "'UnifrakturCok', cursive";
+					break;
+				case "Monoton":
+					inputFont = "'Monoton', cursive";
+					break;
+				case "Fredericka":
+					inputFont = "'Fredericka the Great', cursive";
+					break;
+			}
+			$(".card-text").css("font-family",""+inputFont);
+			$(".card-subtitle").css("font-family",""+inputFont);
+		}
 		
 	});
 	
+	//한글로 보기
 	$("#kr").on("click", function(){
 		//버튼 효과
 		$(".btn-group").children("button").attr('class', 'btn btn-outline-secondary');
@@ -230,6 +265,36 @@
 		for(let i=0; i<modelSize; i++) {
 			$("#"+i).find('.card-text').text(descK[i]);
 			$("#"+i).find('.card-subtitle').text("-"+ autK[i]);
+		}
+		// 폰트체 수정에 의한 폰트체 설정_2021.04.28 
+		if(getCookie('krFont')!= null) { // 한글 폰트 선택 시 폰트 수정_2021.04.28
+			let font = getCookie('krFont');
+			let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+			switch(font) {
+				case "Noto":
+					inputFont = "'Noto Sans KR', sans-serif";
+					break;
+				case "Gaegu":
+					inputFont = "'Gaegu', cursive";
+					break;
+				case "Cute":
+					inputFont = "'Cute Font', cursive";
+					break;
+				case "Single":
+					inputFont = "'Single Day', cursive";
+					break;
+				case "DoHyeon":
+					inputFont = "'Do Hyeon', sans-serif";
+					break;
+				case "Gothic":
+					inputFont = "'Gothic A1', sans-serif";
+					break;
+				case "Black":
+					inputFont = "'Black Han Sans', sans-serif";
+					break;
+			}
+			$(".card-text").css("font-family",""+inputFont);
+			$(".card-subtitle").css("font-family",""+inputFont);	
 		}
 		
 	});
@@ -279,10 +344,74 @@
 						$('#'+i).find('.card-body').append($('<p class="card-text">' + item['descripK'] + '</p>')); // 각 col마다 다른 명언을 넣어야 하기 때문에 
 						$('#'+i).find('.card-body').append($('<p class="card-subtitle">' + '-' + item['authK'] + '</p>'));
 						
+						// 폰트체 수정에 의한 폰트체 설정_2021.04.28 
+						if(getCookie('krFont')!= null) { // 한글 폰트 선택 시 폰트 수정_2021.04.28
+							let font = getCookie('krFont');
+							let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+							switch(font) {
+								case "Noto":
+									inputFont = "'Noto Sans KR', sans-serif";
+									break;
+								case "Gaegu":
+									inputFont = "'Gaegu', cursive";
+									break;
+								case "Cute":
+									inputFont = "'Cute Font', cursive";
+									break;
+								case "Single":
+									inputFont = "'Single Day', cursive";
+									break;
+								case "DoHyeon":
+									inputFont = "'Do Hyeon', sans-serif";
+									break;
+								case "Gothic":
+									inputFont = "'Gothic A1', sans-serif";
+									break;
+								case "Black":
+									inputFont = "'Black Han Sans', sans-serif";
+									break;
+							}
+							$(".card-text").css("font-family",""+inputFont);
+							$(".card-subtitle").css("font-family",""+inputFont);	
+						}
+						
 					} else { //지금이 영어 모드이면
 						$('#'+i).find('.card-body').append($('<p class="card-text">' + item['descripE'] + '</p>')); 
 						$('#'+i).find('.card-body').append($('<p class="card-subtitle">' + '-' + item['authE'] + '</p>'));
 						
+						// 폰트체 수정에 의한 폰트체 설정_2021.04.28
+						if(getCookie('enFont')!=null) { // 영어 폰트 선택 시 폰트 수정_2021.04.28
+							let font = getCookie('enFont');
+							let inputFont = null; // 쿠키 밸류에 따른 폰트속성을 담을 변수
+							switch(font) {
+								case "Indie":
+									inputFont = "'Indie Flower',cursive";
+									break;
+								case "Dancing":
+									inputFont = "'Dancing Script', cursive";
+									break;
+								case "Roboto":
+									inputFont = "'Roboto', sans-serif";
+									break;
+								case "Patrick":
+									inputFont = "'Patrick Hand', cursive";
+									break;
+								case "Cormorant":
+									inputFont = "'Cormorant Garamond', serif";
+									break;
+								case "Unif":
+									inputFont = "'UnifrakturCok', cursive";
+									break;
+								case "Monoton":
+									inputFont = "'Monoton', cursive";
+									break;
+								case "Fredericka":
+									inputFont = "'Fredericka the Great', cursive";
+									break;
+							}
+							$(".card-text").css("font-family",""+inputFont);
+							$(".card-subtitle").css("font-family",""+inputFont);
+						}
 					}
 				
 				}

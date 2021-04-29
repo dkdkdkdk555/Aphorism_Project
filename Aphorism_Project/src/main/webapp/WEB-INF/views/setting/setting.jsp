@@ -56,9 +56,9 @@
 	}
 	
 	.title{
-		font-family:'Indie Flower', cursive;
+		
 		font-weight: bold;
-		font-size:24px;
+		font-size:20px;
 	}
 	
 </style>
@@ -69,13 +69,13 @@
 		<article id="likes">
 			<button>
 				<img src="${pageContext.request.contextPath }/resources/svg/heart.svg" class="logimg"/>
-				<p class="title" style="padding-left:10px;" id="like_title">LIKE</p>
+				<p class="title" style="padding-left:5px;" id="like_title">LIKE</p>
 			</button>
 		</article>
 		<article id="language">
 			<button>
 				<img src="${pageContext.request.contextPath }/resources/svg/translation.svg" class="logimg"/>
-				<p class="title" style="padding-right:10px;"  id="lan_title">KO/EN</p>
+				<p class="title" id="lan_title">KO/EN</p>
 			</button>
 		</article>	
 	</div>
@@ -96,8 +96,8 @@
 	<div class="employee">
 		<article id="recommend">
 			<button>
-				<img src="${pageContext.request.contextPath }/resources/svg/kakao-talk.svg" class="logimg" style="margin-left:43px;"/>
-				<p class="title" style="padding-left:5px;" id="recommend_title">Recommend</p>
+				<img src="${pageContext.request.contextPath }/resources/svg/kakao-talk.svg" class="logimg" style="margin-left:35px;"/>
+				<p class="title"  id="recommend_title">Recommend</p>
 			</button>
 		</article>
 		<article id="screen">
@@ -116,16 +116,29 @@
 
 	//'isKr'한글모드일때  _2021.04.26
 	if(getCookie('isKr')=='yes'){
+		
+		$('.title').css('font-size', '19px');
+		
 		$('#like_title').text('좋아요');
+		$('#like_title').css('padding-left', '');
+		
 		$('#lan_title').text('한/영');
+		$('#lan_title').css('padding-right', '');
+		
 		$('#color_title').text('배경색');
+		$('#color_title').css('padding-left', '');
+		
 		$('#font_title').text('폰트설정');
+		$('#font_title').css('padding-left', '');
+		$('#font').find('img').css('margin-left','9px');
+		
 		$('#recommend_title').text('앱추천하기');
-		$('#recommend_title').css('padding-left', '10px');
-		$('#recommend').find('img').css('margin-left', '23px');
+		$('#recommend_title').css('padding-left', '8px');
+		$('#recommend').find('img').css('margin-left', '25px');
+		
 		$('#screen_title').text('잠금화면 앞에 실행');
-		$('#screen').find('img').css('margin-left', '40px');
-		$('.title').css('font-family',"'Nanum Pen Script', cursive");
+		$('#screen').find('img').css('margin-left', '55px');
+		$('.title').css('font-family',"'Noto Sans KR', sans-serif");
 	}
 	//setting화면이라면 setting메뉴탭을 활성화 시킨다_2021.04.16
 	$(document).ready(function(){
