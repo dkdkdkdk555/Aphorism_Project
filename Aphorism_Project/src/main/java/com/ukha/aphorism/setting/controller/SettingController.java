@@ -57,4 +57,5 @@ public class SettingController {
 	public String screenSetting() {
 		return "setting/screen";
 	}
+
 }

@@ -112,6 +112,7 @@
 
 <jsp:include page="../include/bottom_nav.jsp"></jsp:include>
 </body>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
 
 	//'isKr'한글모드일때  _2021.04.26
@@ -200,9 +201,45 @@
 	$("#font").on('click', function(){
 		location.href ='${pageContext.request.contextPath }/setting/font.do';
 	});
+	
+	Kakao.init('3b2fce3e5669de0e789ac5e528620099');//카카오에서 발급받은 javascript키로 초기화 한다.
+	
 	//추천버튼을 누르면_2021.04.24
 	$("#recommend").on('click', function(){
-		
+		//카카오 피드 메세지 전달 (임시)_2021.04.30
+		Kakao.Link.createDefaultButton({
+			  container: '#recommend',
+			  objectType: 'feed',
+			  content: {
+			    title: '데일리쿠키',
+			    description: '동기부여가 되는 명언 부터 힐링되는 명언까지! 데일리쿠키를 통해 하루를 살아갈 힘을 얻고, 영감을 얻으세요!',
+			    imageUrl:
+			      'https://ibb.co/ZhXbdqS',
+			    link: {
+			      mobileWebUrl: 'http://localhost:8888/aphorism/home.do',
+			      androidExecParams: 'test',
+			    },
+			  },
+			  social: {
+			    likeCount: 10,
+			    commentCount: 20,
+			    sharedCount: 30,
+			  },
+			  buttons: [
+			    {
+			      title: '웹으로 이동',
+			      link: {
+			        mobileWebUrl: 'http://localhost:8888/aphorism/home.do',
+			      },
+			    },
+			    {
+			      title: '앱으로 이동',
+			      link: {
+			        mobileWebUrl: 'http://localhost:8888/aphorism/home.do',
+			      },
+			    },
+			  ]
+			});
 	});
 	//잠금화면 앞에서 실행 설정 버튼 누르면_2021.04.24
 	$("#screen").on('click', function(){

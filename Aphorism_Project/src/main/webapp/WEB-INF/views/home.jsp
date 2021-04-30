@@ -122,12 +122,14 @@
 </div>
 <jsp:include page="include/bottom_nav.jsp"></jsp:include>
 </body>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
 	//home화면이라면 home메뉴탭을 활성화 시킨다_2021.04.12
 	$(document).ready(function(){
 		// 한영전체설정_2021.04.26
 		if(!(getCookie('isKr')=='yes')){ //한글모드가 아니면 영어버튼 클릭
 			$("#language_btn").trigger("click");
+			
 		}
 		//일단 모든 nav__link--active 활성화 클래스를 제거하고 
 		$("#category").removeClass("nav__link--active");
@@ -169,12 +171,16 @@
 		}
 	}
 	
+	//카카오 메세지
+	let kakaodes = null;
+	let kakaoaut = null;
+	
 	//language_btn을 누르면 바로 언어가 바뀌게 하기 위해 담을 변수들
 	let desK = null;
 	let autK = null;
 	let desE = null;
 	let autE = null;
-	//지금이 영어 모드인지
+	//영어모드 인지
 	let enMode = false;
 	//language_btn 시각적으로 토글기능 부여_2021.04.13
 	$("#language_btn").on("click", function(){
@@ -188,6 +194,9 @@
 			
 			$("#description").text(desE);
 			$("#author").text("-"+autE);
+			
+			kakaodes = desE; //영어이면 공유할 텍스트를 영어를 넣기
+			kakaoaut = autE;
 			
 			// 영어 폰트 선택 시 폰트 수정_2021.04.28
 			if(getCookie('enFont')!=null) { 
@@ -228,6 +237,9 @@
 			enMode = false;
 			$("#description").text(desK);
 			$("#author").text("-"+autK);
+			
+			kakaodes = desK; //한글이면 공유할 텍스트를 한글로 
+			kakaoaut = autK;
 			
 			// 한글 폰트 선택 시 폰트 수정_2021.04.28
 			if(getCookie('krFont')!= null) { 
@@ -281,6 +293,9 @@
 				if(enMode) { //지금이 영어모드이면 
 					$("#description").text(""+data["descripE"]);
 					$("#author").text("-"+data["authE"]);
+					
+					kakaodes = desE; //영어이면 공유할 텍스트를 영어를 넣기
+					kakaoaut = autE;
 				
 					if(getCookie('enFont')!=null) { // 영어 폰트 선택 시 폰트 수정_2021.04.28
 						let font = getCookie('enFont');
@@ -317,6 +332,9 @@
 				} else { //지금이 한글 모드이면
 					$("#description").text(""+data["descripK"]);
 					$("#author").text("-"+data["authK"]);
+					
+					kakaodes = desK; //한글이면 공유할 텍스트를 한글로 
+					kakaoaut = autK;
 
 					if(getCookie('krFont')!= null) { // 한글 폰트 선택 시 폰트 수정_2021.04.28
 						let font = getCookie('krFont');
@@ -381,9 +399,16 @@
 				if(enMode) { //지금이 한글모드이면  
 					$("#description").text(""+data["descripE"]);
 					$("#author").text("-"+data["authE"]);
+					
+					kakaodes = desE; //영어이면 공유할 텍스트 영어로
+					kakaoaut = autE;
+					
 				} else { //지금이 영어 모드이면
 					$("#description").text(""+data["descripK"]);
 					$("#author").text("-"+data["authK"]);
+					
+					kakaodes = desK; //한글이면 공유할 텍스트를 한글로 
+					kakaoaut = autK;
 				}
 				
 				// 명언의 좋아요 여부 검사
@@ -416,12 +441,19 @@
 				desE = data["descripE"];
 				autK = data["authK"];
 				autE = data["authE"];
-				if(enMode) { //지금이 한글모드이면 
+				if(enMode) { //지금이 영어 
 					$("#description").text(""+data["descripE"]);
 					$("#author").text("-"+data["authE"]);
-				} else { //지금이 영어 모드이면
+					
+					kakaodes = desE; //영어이면 공유할 텍스트 영어로
+					kakaoaut = autE;
+					
+				} else { //지금이 한글 모드이면
 					$("#description").text(""+data["descripK"]);
 					$("#author").text("-"+data["authK"]);
+					
+					kakaodes = desK; //한글이면 공유할 텍스트를 한글로 
+					kakaoaut = autK;
 				}
 				
 				// 명언의 좋아요 여부 검사
@@ -488,6 +520,27 @@
 			
 		}
 		
+	});
+	
+	Kakao.init('3b2fce3e5669de0e789ac5e528620099');//카카오에서 발급받은 javascript키로 초기화 한다.
+	
+	
+
+	
+	//명언 출력부를 더블클릭했을때 카카오 API를 이용해서 공유하기_2021.04.30 
+	$("#description").dblclick(function(){
+		Kakao.Link.createDefaultButton({
+			  container: '#description',
+			  objectType: 'text',
+			  text:
+			    '' + kakaodes + '\n -' + kakaoaut,
+			  link: {
+			    mobileWebUrl:
+			      'http://localhost:8888/aphorism/home.do',
+			    webUrl:
+			      'http://localhost:8888/aphorism/home.do',
+			  },
+			});
 	});
 	
 	//쿠키 생성 메소드_2021.04.23
