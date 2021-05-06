@@ -97,7 +97,7 @@
 			</button>
 		</div>
 		<div class="row-xs-8"><!--명언출력부-->
-			<p id="id"></p>
+			<p id="id" hidden></p>
 			<p id="description"></p>
 			<p id="author"></p>
 			<div id="lan_like">

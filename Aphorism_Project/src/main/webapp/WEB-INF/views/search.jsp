@@ -82,7 +82,7 @@
 		margin-left:20px;
 		display:inline;
 		flex-grow:1;
-		height:20px;
+		height:40px;
 		width:18px;
 		
 	}
@@ -439,6 +439,16 @@
 	    });
 	    return result; //키값과 일치하는 쿠키가 없다면 null을 리턴
 	}
+	
+	//엔터키 누르면 검색되도록_2021.05.06
+	function enterkey() {
+        if (window.event.keyCode == 13) {
+ 			console.log("ed");
+             // 엔터키가 눌렸을 때 실행할 내용
+             $("#searchLogo").trigger("click");
+        }
+	}
+
 	
 </script>
 </html>

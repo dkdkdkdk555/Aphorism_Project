@@ -93,16 +93,16 @@
 			</button>
 		</article>
 	</div>
-	<div class="employee">
+	<div class="employee" hidden>
 		<article id="recommend">
 			<button>
-				<img src="${pageContext.request.contextPath }/resources/svg/kakao-talk.svg" class="logimg" style="margin-left:35px;"/>
+				<img src="${pageContext.request.contextPath }/resources/svg/kakao-talk.svg" class="logimg" style="margin-left:28px;"/>
 				<p class="title"  id="recommend_title">Recommend</p>
 			</button>
 		</article>
 		<article id="screen">
 			<button>
-				<img src="${pageContext.request.contextPath }/resources/svg/settings.svg" class="logimg" style="margin-left:30px;"/>
+				<img src="${pageContext.request.contextPath }/resources/svg/settings.svg" class="logimg" style="margin-left:25px;"/>
 				<p class="title" id="screen_title">Run on<br />lock screen</p>
 			</button>
 		</article>
