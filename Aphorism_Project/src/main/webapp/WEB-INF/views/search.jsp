@@ -72,8 +72,8 @@
 	}
 	/* 검색어 창*/
 	#keywordInsert{
-		margin-left:5px;
-		height: 32px;
+		margin-left:10px;
+		height: 18px; /*이걸 줄여서 검색로고와 평행을 맞춤*/
 		border:none;
 		focusable:none;
 	}
@@ -84,7 +84,6 @@
 		flex-grow:1;
 		height:40px;
 		width:18px;
-		
 	}
 	/* 검색어 창 포커스 되었을 때 설정 */
 	input:focus{
@@ -97,7 +96,9 @@
 	}
 	
 	.form{
-		display:inline;
+		display:flex; /*flex, baseline 설정으로 검색로고와 인풋요소의 평행을 맞춤_2021.05.12*/
+		align-itmes:baseline;
+		margin-top:10px;
 	}
 	
 	#searchResult{ /*검색 결과  표시 */
@@ -119,6 +120,8 @@
 		font-family: 'Nanum Pen Script', cursive;
 		text-align: center;
 	}
+	
+	
 </style>
 </head>
 <body>
@@ -316,7 +319,12 @@
 				modelSize = data.length;
 				console.log(data);
 				if(data==null || data==undefined || data.length==0){
-					$("#searchResult").text("검색결과가 없습니다."); //no result.
+					//검색결과 없을 때 한영 반영 및 검색키워드 포함시키기_2021.05.12
+					if(enMode){
+						$("#searchResult").text("No results for query '" + searchKeyword + "'");
+					} else {
+						$("#searchResult").text("'"+ searchKeyword + "'" + "에 대한 검색결과가 없습니다."); //no result.
+					}
 				} else {
 					$("#searchResult").text("result: "+modelSize); // 총 검색 결과 개수 
 				}
