@@ -1,4 +1,9 @@
 # The power of thought
+<img src="https://user-images.githubusercontent.com/64780300/118216537-ac1fb380-b4ae-11eb-96c2-2509dbf72e99.png" width="70" height="70">
+### 😎소개
+
+
+> '생각의 힘'은 명언을 추천받고 이를 영어원문으로도 볼 수 있는 서비스입니다. 
 
 <br>
 
